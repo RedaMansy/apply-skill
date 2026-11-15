@@ -1,4 +1,4 @@
-# job-apply-kit
+# apply-skill
 
 A [Claude Code](https://claude.com/claude-code) skill that tailors a LaTeX CV to a job
 description and logs the application in an [Obsidian](https://obsidian.md) vault.
@@ -26,21 +26,28 @@ you instead of guessing.
   TeX Live (Linux)
 - [Obsidian](https://obsidian.md) (optional, but it's what makes the notes useful)
 
-## Setup
+## Getting started
 
-1. Click **Use this template** on GitHub and **make your copy private**: it will hold
-   your CV, contact details and every application you make.
-2. Clone it and open the folder as a vault in Obsidian.
-3. Set your CV file prefix in `CLAUDE.md` (e.g. `JaneDoeCV`).
-4. Replace the placeholder content in `cv/master.tex` with your own CV. Fill the page:
-   tailoring works by swapping content in and out of a fixed one-page budget.
-5. Fill `cv/bullet-bank.md` with true alternative wordings of your bullets, extra
-   bullets that didn't fit the master, and facts that are true but aren't on your CV.
-   The more you put here, the better the tailoring.
-6. Check it compiles:
-   ```
-   pdflatex -interaction=nonstopmode -output-directory=cv/build cv/master.tex
-   ```
+1. **Get your own copy.** Click **Use this template** on GitHub and **make it
+   private**: it will hold your CV, contact details and every application you make.
+   Then clone it. (No git? Use **Code > Download ZIP** and unzip it instead.)
+2. **Open Claude Code in the folder:** `cd apply-skill` then `claude`, or open the
+   folder in VS Code with the Claude Code extension.
+3. **Run `/setup`.** Claude notices the workspace is new and walks you through it in
+   about 20-40 minutes:
+   1. Checks LaTeX is installed and tells you how to install it if not.
+   2. Asks for your current CV (PDF is best) and anything else useful, like old CVs or
+      your LinkedIn profile saved as PDF. Put these in `cv/sources/`.
+   3. Confirms your details, target roles, page size (A4 / US Letter) and spelling.
+   4. Converts your CV into the template, keeping your wording, and fits it to one
+      full page. Anything that doesn't fit goes into your bullet bank, not the bin.
+   5. Goes through your skills and asks what's missing.
+   6. Interviews you about each role to build up your bullet bank: what you built,
+      numbers, who you worked with. It drafts alternative bullets and you confirm each
+      one is true.
+
+   You can stop at any point and run `/setup` again later to carry on. Run
+   `/setup bullets` any time to add more to your bullet bank.
 
 ## Usage
 
@@ -63,11 +70,13 @@ status, history and activity log.
 ## Layout
 
 ```
-CLAUDE.md                         rules for Claude: statuses, file layout, CV prefix
+CLAUDE.md                         your details, CV preferences and rules for Claude
+.claude/skills/setup/SKILL.md     the /setup onboarding
 .claude/skills/apply/SKILL.md     the /apply workflow
 .claude/skills/apply/entry-template.md   frontmatter + layout for application notes
+cv/sources/                       your original CVs, LinkedIn PDF, etc.
 cv/master.tex                     your base CV (never edited by /apply)
-cv/bullet-bank.md                 true alternative bullets and confirmed facts
+cv/bullet-bank.md                 true alternative bullets, skills and confirmed facts
 cv/tailored/<Company>.tex         one tailored CV per application
 cv/build/                         LaTeX output (gitignored)
 Attachments/<Prefix>_<Company>.pdf  the exact PDF you sent
@@ -80,8 +89,9 @@ Obsidian Bases or the Dataview plugin.
 
 ## Tips
 
-- Make the skill your own. `SKILL.md` is plain English, so add your preferences to it
-  (e.g. "always keep my dissertation project", "never drop the second bullet at X").
+- Tell Claude your standing preferences ("always keep my dissertation project",
+  "never drop the second bullet at X") and it records them under CV preferences in
+  `CLAUDE.md`. The skills are plain English too, so you can edit them directly.
 - When you reword something at the approval step and like the result, ask Claude to
   add it to the bullet bank.
 - Keep the PDFs you send in git. Rebuilding one later won't always give the same file

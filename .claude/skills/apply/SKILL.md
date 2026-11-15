@@ -15,6 +15,11 @@ Anything else is feedback: apply it and show the result again.
 
 `<CVPrefix>` below is the CV file prefix set in `CLAUDE.md` (e.g. `JaneDoeCV`).
 
+Before starting: if the prefix is still `YourNameCV` or `cv/master.tex` still contains
+`Jane Doe`, the workspace isn't set up. Tell me to run `/setup` first and stop.
+
+Follow the About me and CV preferences sections of `CLAUDE.md` throughout.
+
 ## 1. Get the job description
 
 - If the input is a URL, fetch it. JS-rendered job sites (Apple, Workday, many ATSs)

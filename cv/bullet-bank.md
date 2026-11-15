@@ -8,6 +8,14 @@ you can see what worked where.
 Everything here must be true. If it's not something you'd happily defend in an
 interview, it doesn't belong here.
 
+## Skills
+
+Everything you've used, with how deeply where it isn't obvious. Only skills with real
+use behind them can support a bullet; the rest are skills-line only.
+
+- *Example:* **Languages**: Python (professional, 3 years), TypeScript (professional), Java (university only)
+- *Example:* **Tools**: Terraform (professional, staging infrastructure only), Docker
+
 ## Confirmed facts
 
 Facts that are true but don't appear in the master CV (tools you've used, context about
