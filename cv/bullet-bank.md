@@ -39,6 +39,15 @@ confirm something during tailoring.
 ### Example Project
 - *Example:* Alternative bullet that emphasises testing, for QA-heavy roles
 
+### Example Side Project (not on the master CV)
+Heading: *Example:* Python, FastAPI, PostgreSQL | github.com/janedoe/side-project
+- *Example:* Built a REST API for tracking personal reading lists, with full test coverage in pytest
+- *Example:* Deployed it with Docker on a free-tier VPS, with nightly database backups
+
+Roles and projects that aren't on the master CV need their heading details here
+(month-and-year dates and location for a role; link or dates plus technologies for a
+project), so `/apply` can add them to a CV without asking again.
+
 ## Skills groupings
 
 - *Example (data roles):* **Data**: pandas, NumPy, SQL, Airflow

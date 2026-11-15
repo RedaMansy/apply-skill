@@ -40,8 +40,9 @@ you instead of guessing.
 3. **Run `/setup`.** Claude notices the workspace is new and walks you through it in
    about 20-40 minutes:
    1. Checks LaTeX is installed and tells you how to install it if not.
-   2. Asks for your current CV (PDF is best) and anything else useful, like old CVs or
-      your LinkedIn profile saved as PDF. Put these in `cv/sources/`.
+   2. Asks for your current CV and anything else useful, like old CVs or your LinkedIn
+      profile saved as PDF. Just drag the files into the chat (or paste the text) and
+      Claude files them away in `cv/sources/`.
    3. Confirms your details, target roles, page size (A4 / US Letter) and spelling.
    4. Converts your CV into the template, keeping your wording, and fits it to one
       full page. Anything that doesn't fit goes into your bullet bank, not the bin.

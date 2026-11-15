@@ -61,6 +61,11 @@ Follow the About me and CV preferences sections of `CLAUDE.md` throughout.
     drop the project instead.
   - Reorder and regroup the Technical Skills lines to lead with what the JD asks for.
   - Keep the formatting and preamble untouched, and escape LaTeX specials (`& % $ # _`).
+  - Never change a heading's dates, location or link. If you add a role or project
+    from the bullet bank, give it the same Jake's-template heading as the rest
+    (`Mon YYYY -- Mon YYYY` dates; a project's link or dates and its technologies),
+    using the details stored in the bank. If they aren't there, ask me rather than
+    leaving them out.
   - **It must be exactly one page, no exceptions,** and it should fill the page: no
     large white space at the bottom. Treat line count as a fixed budget: every line
     added (longer bullet, extra skill line, bank bullet) must be paid for by a line

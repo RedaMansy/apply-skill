@@ -26,7 +26,11 @@ tailored CV depends on what goes into the master CV and the bullet bank here.
   - Every question that might not apply gets a "Skip for now" or "I don't know" option.
   - Put the context they need to answer (what you found, a draft bullet, the PDF path)
     in the question or option text, because the prompt may hide earlier messages.
-  - Ask up to 4 related questions in one call (the tool's limit), one topic per call.
+  - **A multiSelect question always goes in a call on its own.** With several questions
+    in one call, Submit stays greyed out until every question's tab is answered, and a
+    multiSelect question doesn't move on to the next tab by itself, so the user gets
+    stuck. Single-select questions can be grouped (up to 4 per call, one topic per
+    call), because clicking an option moves to the next tab.
   - Plain text only for things that don't fit a prompt: long pastes like CV text, or
     "tell me when you've done X" steps (and even those can be a "Done" / "Need help"
     prompt).
@@ -58,16 +62,36 @@ it's already done (to add more or redo it).
 
 Otherwise, on a fresh workspace, welcome them in a few lines: what this workspace does,
 what setup involves (the six steps above, about 20-40 minutes, most of it the bullet-bank
-interview), and that they can stop at any time. Then ask them to put their files in
-`cv/sources/` (create it if missing), with a prompt offering "Done, files are in
-cv/sources", "I'll paste my CV text instead" and "Where is that folder?":
+interview), and that they can stop at any time.
 
-- **Their current CV** (required). PDF is best. For a Word file, ask them to save it as
-  PDF, or paste the text into the chat.
-- **Optional extras that make the bullet bank much better:** older CVs or versions
-  tailored for other jobs, their LinkedIn profile as a PDF (on their profile: More >
-  Save to PDF), cover letters, a portfolio or personal website link, and their GitHub
-  username.
+Then ask for their CV in plain text (this is one of the few questions that isn't a
+prompt, because they need to reply with a file). Tell them how to attach it:
+
+- **Drag the file into this chat** (or, in a terminal, paste its full path). PDF is
+  best; Word files are fine too.
+- Or **paste the CV text** straight into the chat if the file isn't to hand.
+
+Mention the optional extras in the same message, since they make the bullet bank much
+better: older CVs or versions tailored for other jobs, their LinkedIn profile as a PDF
+(on their profile: More > Save to PDF), cover letters, a portfolio or personal website
+link, and their GitHub username. They can attach several files at once.
+
+When they reply, store everything in `cv/sources/` yourself (create it if missing). They
+should never have to find that folder:
+
+- **Files:** copy each one into `cv/sources/` (copy, never move: leave their original
+  where it was). Give it a clear name, e.g. `cv-current.pdf`, `cv-2023.pdf`,
+  `linkedin.pdf`, `cover-letter-acme.pdf`, keeping the original extension.
+- **Word files (`.docx`):** copy the file in as well, then extract the text into a `.md`
+  alongside it so you can read it (try `pandoc`, otherwise unzip `word/document.xml`
+  and strip the tags). If neither works, ask them to save it as PDF and attach that.
+- **Pasted text:** save it as `cv/sources/cv-current.md`.
+- **Links and usernames:** add them to `cv/sources/links.md`.
+
+Then read everything, and confirm in one line what you've stored ("Saved your CV and
+LinkedIn PDF to cv/sources"). If what they attached doesn't look like a CV, say so and
+ask again. Ask once, with a prompt, whether they have anything else to add ("That's
+everything" / "I'll attach more").
 
 If some phases are already done, say which ones and continue from the first one that
 isn't.
@@ -111,9 +135,9 @@ for them.
   - Spelling: UK or US English.
   - CV file prefix, suggested from their name (e.g. `JaneDoeCV`). This becomes the
     start of every saved PDF's name, so recruiters see their name.
-- Then a prompt about what they're targeting, with options suggested from their CV:
-  job titles (multiSelect), seniority, work setup (Remote / Hybrid / On-site / Any), and
-  locations. Follow up only on anything else that affects which jobs fit (e.g. needing
+- Then ask what they're targeting, with options suggested from their CV: first job
+  titles on their own (multiSelect), then one prompt with seniority, work setup
+  (Remote / Hybrid / On-site / Any) and locations. Follow up only on anything else that affects which jobs fit (e.g. needing
   visa sponsorship).
 - Write to `CLAUDE.md`: set the prefix, and fill the `## About me` section with the
   target roles, page size and spelling.
@@ -127,10 +151,36 @@ for them.
   template's structure (Education, Experience, Projects, Technical Skills; add sections
   like Publications or Certifications only if their CV has them) and escape LaTeX
   specials (`& % $ # _`).
+- **Follow Jake's template conventions for every entry**, using the placeholder CV's
+  layout as the pattern. Dates are always `Mon YYYY -- Mon YYYY` (three-letter month,
+  `--` en dash), or `Mon YYYY -- Present`:
+  - **Education:** `\resumeSubheading{Institution}{City, Country}{Degree, grade}{dates}`.
+  - **Experience:** `\resumeSubheading{Job title}{dates}{Company}{City, Country}`.
+  - **Projects:** `\resumeProjectHeading{\textbf{Name} $|$ \emph{Main technologies}}{right side}`,
+    where the right side is either a link
+    (`\href{https://github.com/user/repo}{\underline{github.com/user/repo}}`) or dates.
+  - Bullets are `\resumeItem{...}` inside `\resumeItemListStart` /
+    `\resumeItemListEnd`.
+- **Fill in anything the template needs that their CV is missing**, before compiling.
+  Check their other sources first (a LinkedIn PDF usually has months for every job), and
+  only ask about what's still missing:
+  - **Experience and education:** start and end month and year. If their CV only gives
+    years, ask for the months, one prompt per entry, offering any months found in their
+    sources, "Still there (Present)" for end dates, and Other to type them. Never guess
+    a month. If they really don't know, ask for their best estimate and note it in
+    `cv/bullet-bank.md` under Confirmed facts so they can check it later.
+  - **Location** for each job and degree, if missing.
+  - **Projects:** what goes on the right side. Offer "GitHub link" (pre-filled with any
+    repo found in their sources or GitHub profile), "Live link", or "Dates", with Other
+    to type the link. If they pick dates, ask for start and end month and year. If a
+    project has neither a link nor dates they can give, the right side stays empty.
+  - **Projects:** the main technologies for the `\emph{...}` part of the heading, if
+    their CV doesn't list them. Offer the ones mentioned in the project's bullets.
 - Then suggest improvements: weak openers ("Helped", "Responsible for"), vague bullets
   that need a number they might know, repeated verbs, bullets that wrap by one or two
   words, UK/US spelling. Offer them as a multiSelect prompt ("Which of these should I
-  apply?"), each option showing the before and after, up to 4 per question.
+  apply?"), each option showing the before and after. Four options fit in one prompt; for
+  more, ask again in a new prompt rather than adding a second question.
 - **It must be exactly one page, and it should fill the page.** Tailoring works by
   swapping content in and out of a fixed budget, so the master should be full.
   - If their CV is too long, keep the strongest and most general content in the
@@ -148,7 +198,7 @@ for them.
   Cloud, Data, Domain knowledge, or whatever fits their field; not everyone is a
   software engineer).
 - Ask what's missing with multiSelect prompts of common skills for their target roles
-  that aren't in their sources, one category per question ("Have you used any of these
+  that aren't in their sources, one category per prompt ("Have you used any of these
   databases?"), with Other for anything not listed. Tools from old jobs, university and
   side projects all count.
 - For anything not already backed up by a bullet, ask how they used it, one skill per
@@ -168,11 +218,14 @@ Go through their roles from most recent, then their main projects. For a long ca
 cover the last three roles and their best two projects, and offer to do older ones
 later. For each one:
 
-1. Show what's already on the CV and in the bank for it.
+1. Show what's already on the CV and in the bank for it. If they bring up a role or
+   project that isn't on the CV yet, collect the same heading details as phase 3
+   (month-and-year dates and location, or the project's link or dates and technologies)
+   and store them with its bullets in the bank, so it can be added to a CV later.
 2. Ask up to three of these per prompt, picking the ones that will uncover the most.
    Give each one options you can infer from their sources (e.g. for tools, the ones
-   their CV mentions for that job, multiSelect), plus "Skip"; their real detail will
-   usually come through Other, and that's fine:
+   their CV mentions for that job, as a multiSelect in its own prompt), plus "Skip";
+   their real detail will usually come through Other, and that's fine:
    - What did you build, own or change that isn't on your CV yet?
    - Any numbers: users, requests, money, time saved, team size, % improvement?
    - Who did you work with (team size, other teams, clients, senior leadership)?
@@ -184,7 +237,8 @@ later. For each one:
    for different kinds of job (e.g. backend vs. data vs. leadership), and a short version
    of each long bullet. Mark which kind of job each angle suits.
 4. **Ask them to confirm every drafted bullet is true** with a multiSelect prompt
-   ("Which of these are accurate?"), one bullet per option, up to 4 per question.
+   ("Which of these are accurate?"), one bullet per option, four per prompt; for more
+   bullets, use another prompt.
    Unticked bullets don't go in the bank; ask in Other what needs fixing.
 5. Write them to `cv/bullet-bank.md` under the role, and put facts that are true but
    don't make a bullet (e.g. "worked directly with the CEO") under `## Confirmed facts`.
