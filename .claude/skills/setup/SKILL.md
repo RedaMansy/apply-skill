@@ -26,11 +26,7 @@ tailored CV depends on what goes into the master CV and the bullet bank here.
   - Every question that might not apply gets a "Skip for now" or "I don't know" option.
   - Put the context they need to answer (what you found, a draft bullet, the PDF path)
     in the question or option text, because the prompt may hide earlier messages.
-  - **A multiSelect question always goes in a call on its own.** With several questions
-    in one call, Submit stays greyed out until every question's tab is answered, and a
-    multiSelect question doesn't move on to the next tab by itself, so the user gets
-    stuck. Single-select questions can be grouped (up to 4 per call, one topic per
-    call), because clicking an option moves to the next tab.
+  - Ask up to 4 related questions in one call (the tool's limit), one topic per call.
   - Plain text only for things that don't fit a prompt: long pastes like CV text, or
     "tell me when you've done X" steps (and even those can be a "Done" / "Need help"
     prompt).
@@ -135,9 +131,9 @@ for them.
   - Spelling: UK or US English.
   - CV file prefix, suggested from their name (e.g. `JaneDoeCV`). This becomes the
     start of every saved PDF's name, so recruiters see their name.
-- Then ask what they're targeting, with options suggested from their CV: first job
-  titles on their own (multiSelect), then one prompt with seniority, work setup
-  (Remote / Hybrid / On-site / Any) and locations. Follow up only on anything else that affects which jobs fit (e.g. needing
+- Then a prompt about what they're targeting, with options suggested from their CV:
+  job titles (multiSelect), seniority, work setup (Remote / Hybrid / On-site / Any), and
+  locations. Follow up only on anything else that affects which jobs fit (e.g. needing
   visa sponsorship).
 - Write to `CLAUDE.md`: set the prefix, and fill the `## About me` section with the
   target roles, page size and spelling.
@@ -179,8 +175,7 @@ for them.
 - Then suggest improvements: weak openers ("Helped", "Responsible for"), vague bullets
   that need a number they might know, repeated verbs, bullets that wrap by one or two
   words, UK/US spelling. Offer them as a multiSelect prompt ("Which of these should I
-  apply?"), each option showing the before and after. Four options fit in one prompt; for
-  more, ask again in a new prompt rather than adding a second question.
+  apply?"), each option showing the before and after, up to 4 per question.
 - **It must be exactly one page, and it should fill the page.** Tailoring works by
   swapping content in and out of a fixed budget, so the master should be full.
   - If their CV is too long, keep the strongest and most general content in the
@@ -198,7 +193,7 @@ for them.
   Cloud, Data, Domain knowledge, or whatever fits their field; not everyone is a
   software engineer).
 - Ask what's missing with multiSelect prompts of common skills for their target roles
-  that aren't in their sources, one category per prompt ("Have you used any of these
+  that aren't in their sources, one category per question ("Have you used any of these
   databases?"), with Other for anything not listed. Tools from old jobs, university and
   side projects all count.
 - For anything not already backed up by a bullet, ask how they used it, one skill per
@@ -224,8 +219,8 @@ later. For each one:
    and store them with its bullets in the bank, so it can be added to a CV later.
 2. Ask up to three of these per prompt, picking the ones that will uncover the most.
    Give each one options you can infer from their sources (e.g. for tools, the ones
-   their CV mentions for that job, as a multiSelect in its own prompt), plus "Skip";
-   their real detail will usually come through Other, and that's fine:
+   their CV mentions for that job, multiSelect), plus "Skip"; their real detail will
+   usually come through Other, and that's fine:
    - What did you build, own or change that isn't on your CV yet?
    - Any numbers: users, requests, money, time saved, team size, % improvement?
    - Who did you work with (team size, other teams, clients, senior leadership)?
@@ -237,8 +232,7 @@ later. For each one:
    for different kinds of job (e.g. backend vs. data vs. leadership), and a short version
    of each long bullet. Mark which kind of job each angle suits.
 4. **Ask them to confirm every drafted bullet is true** with a multiSelect prompt
-   ("Which of these are accurate?"), one bullet per option, four per prompt; for more
-   bullets, use another prompt.
+   ("Which of these are accurate?"), one bullet per option, up to 4 per question.
    Unticked bullets don't go in the bank; ask in Other what needs fixing.
 5. Write them to `cv/bullet-bank.md` under the role, and put facts that are true but
    don't make a bullet (e.g. "worked directly with the CEO") under `## Confirmed facts`.
