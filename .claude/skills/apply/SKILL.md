@@ -9,9 +9,11 @@ disable-model-invocation: true
 
 Input: $ARGUMENTS
 
-Work through the steps in order. There are two approval gates; at each one, stop and
-wait for an explicit approval ("approved", "looks good", "yes") before moving on.
-Anything else is feedback: apply it and show the result again.
+Work through the steps in order. There are two approval gates. At each one, show the
+details in a message, then ask with the AskUserQuestion tool: "Approve" / "Changes
+needed" (I describe them in Other). Only "Approve" moves on; anything else is feedback:
+apply it and ask again. Ask any other question in this workflow the same way, with
+options rather than waiting for a typed reply.
 
 `<CVPrefix>` below is the CV file prefix set in `CLAUDE.md` (e.g. `JaneDoeCV`).
 
@@ -32,7 +34,7 @@ Follow the About me and CV preferences sections of `CLAUDE.md` throughout.
   stated), job URL, source. Source is one of the sources listed in `CLAUDE.md`; use
   "Other" only if none fit.
 - Check whether `Job Applications/<Company> - <Role>.md` already exists. If it does,
-  tell me and ask before continuing.
+  tell me and ask before continuing ("Continue as a new application" / "Stop").
 - Give me a 3-5 line read of the role: what they mostly want, the must-have skills, and
   where my CV is strong or weak against it.
 
@@ -74,7 +76,8 @@ Follow the About me and CV preferences sections of `CLAUDE.md` throughout.
   and recompile. Never show me a CV at Gate 1 that isn't one page.
 - Read the compiled PDF to check it looks right.
 - **Gate 1:** show me a short changelog (bullets reworded, moved, added from the bank,
-  removed; skills changes) and the path to `cv/build/<suffix>.pdf`. Stop and wait.
+  removed; skills changes) and the path to `cv/build/<suffix>.pdf`, then ask for
+  approval.
 
 ## 3. Save the CV
 
@@ -93,6 +96,6 @@ If I asked for a reworded bullet during Gate 1 that's worth reusing, add it to
   `{{jobDescription}}` is the full JD text, cleaned of navigation/cookie junk.
 - Leave unknown fields as `""` in the frontmatter and drop the matching Overview line.
 - **Gate 2:** show me the frontmatter and Overview section, and list this application's
-  files (the entry `.md`, the attached PDF and `cv/tailored/<suffix>.tex`). Stop
-  and wait. If I give feedback, apply it and show the result again.
+  files (the entry `.md`, the attached PDF and `cv/tailored/<suffix>.tex`), then ask
+  for approval.
 - That's the end of the workflow. I commit and push myself: never stage, commit or push.
