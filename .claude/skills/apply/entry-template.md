@@ -6,6 +6,7 @@ status: Applied
 dateApplied: {{today}}
 lastUpdated: {{today}}
 location: {{location}}
+workplaceType: {{workplaceType}}
 employmentType: {{employmentType}}
 salary: "{{salary}}"
 jobUrl: {{jobUrl}}
@@ -25,9 +26,10 @@ CV used: "[[{{cvFile}}]]"
 # {{company}} - {{role}}
 
 ## 📋 Overview
+- **Salary / Comp:** {{salary}}
 - **Location:** {{location}}
+- **Workplace Model:** {{workplaceType}}
 - **Employment Type:** {{employmentType}}
-- **Salary:** {{salary}}
 - **Source:** {{source}}
 - **Job Posting:** [Link]({{jobUrl}})
 - **Applied Date:** {{today}}

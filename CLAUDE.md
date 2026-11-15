@@ -19,14 +19,19 @@ CV file prefix: `YourNameCV`
 
 ## Workspace rules
 
-- One note per application in the repo root, named `<Company> - <Role>.md`, using the
-  frontmatter in `.claude/skills/apply/entry-template.md`. Status values in use:
-  Applied, Screening, Interviewing, Offer, Accepted, Rejected, Inactive (no response
-  4+ weeks after applying; can still move on if they reply). When changing status,
+- Folders, statuses and sources match the defaults of the Job Application Tracker
+  Obsidian plugin. If I change them in the plugin's settings, update them here too.
+- One note per application in `Job Applications/`, named `<Company> - <Role>.md`, using
+  the frontmatter in `.claude/skills/apply/entry-template.md`. When changing status,
   update `status`, `lastUpdated`, append to `statusHistory`, and add a line to the
   Notes & Activity Log.
-- `Attachments/` holds the CV PDF sent for each application (`<prefix>_<suffix>.pdf`),
-  linked from the note's `CV used` field.
+- Statuses: Wishlist, Applied, Screening, Interviewing, Offer, Accepted, Rejected,
+  Withdrawn, Ghosted.
+- Sources: LinkedIn, Company Website, Referral, Indeed, Wellfound (AngelList), Otta,
+  Recruiter Reachout, Other.
+- `Job Applications/Attachments/` holds the CV PDF sent for each application
+  (`<prefix>_<suffix>.pdf`), linked from the note's `CV used` field.
+  `Job Applications/Interviews/` holds interview prep notes.
 - `cv/master.tex` is the base CV. Never edit it unless I ask to change the base CV.
   Tailored versions live in `cv/tailored/`; build output goes to `cv/build/` (ignored).
   `cv/bullet-bank.md` holds true alternative bullets, skills and confirmed facts to

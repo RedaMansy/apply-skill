@@ -1,6 +1,6 @@
 ---
 name: apply
-description: Tailor the LaTeX CV to a job description, save the PDF to Attachments and create the Obsidian tracker entry. Use when given a job link or pasted job description to apply for.
+description: Tailor the LaTeX CV to a job description, save the PDF and create the Obsidian tracker entry. Use when given a job link or pasted job description to apply for.
 argument-hint: <job URL or pasted job description>
 disable-model-invocation: true
 ---
@@ -27,10 +27,11 @@ Follow the About me and CV preferences sections of `CLAUDE.md` throughout.
   job data embedded in a script tag (e.g. `__staticRouterHydrationData`, `__NEXT_DATA__`,
   or `application/ld+json` with `"@type": "JobPosting"`). If that also fails, or the page
   needs a login (LinkedIn), ask me to paste the text instead.
-- Extract: company, role, location, employment type, salary (blank if not stated),
-  job URL, source. Use one of: "LinkedIn", "Company Website", "Job Board", "Referral",
-  "Recruiter Reachout"; "Other" only if none fit.
-- Check whether `<Company> - <Role>.md` already exists in the repo root. If it does,
+- Extract: company, role, location, workplace type (Remote, Hybrid or On-site),
+  employment type (Full-time, Contract, Part-time or Internship), salary (blank if not
+  stated), job URL, source. Source is one of the sources listed in `CLAUDE.md`; use
+  "Other" only if none fit.
+- Check whether `Job Applications/<Company> - <Role>.md` already exists. If it does,
   tell me and ask before continuing.
 - Give me a 3-5 line read of the role: what they mostly want, the must-have skills, and
   where my CV is strong or weak against it.
@@ -38,7 +39,7 @@ Follow the About me and CV preferences sections of `CLAUDE.md` throughout.
 ## 2. Tailor the CV
 
 - Pick a short CV suffix: the company name with no spaces (e.g. `Acme`, `Initech`).
-  If `Attachments/<CVPrefix>_<suffix>.pdf` already exists, add a role hint
+  If `Job Applications/Attachments/<CVPrefix>_<suffix>.pdf` already exists, add a role hint
   (e.g. `Acme_DevOps`).
 - Copy `cv/master.tex` to `cv/tailored/<suffix>.tex` and edit only the copy.
   Never edit `cv/master.tex` during this workflow.
@@ -77,20 +78,21 @@ Follow the About me and CV preferences sections of `CLAUDE.md` throughout.
 
 ## 3. Save the CV
 
-Once approved, copy `cv/build/<suffix>.pdf` to `Attachments/<CVPrefix>_<suffix>.pdf`.
+Once approved, copy `cv/build/<suffix>.pdf` to
+`Job Applications/Attachments/<CVPrefix>_<suffix>.pdf`.
 If I asked for a reworded bullet during Gate 1 that's worth reusing, add it to
 `cv/bullet-bank.md`.
 
 ## 4. Create the tracker entry
 
-- Fill `.claude/skills/apply/entry-template.md` and write it to `<Company> - <Role>.md`
-  in the repo root. Strip characters that are invalid in filenames (`/ \ : * ? " < > |`)
+- Fill `.claude/skills/apply/entry-template.md` and write it to
+  `Job Applications/<Company> - <Role>.md`. Strip characters that are invalid in filenames (`/ \ : * ? " < > |`)
   from the name.
 - `{{today}}` is today's date (YYYY-MM-DD). `{{cvFile}}` is `<CVPrefix>_<suffix>.pdf`.
   `{{tailoringSummary}}` is a one-line summary of the changelog.
   `{{jobDescription}}` is the full JD text, cleaned of navigation/cookie junk.
 - Leave unknown fields as `""` in the frontmatter and drop the matching Overview line.
 - **Gate 2:** show me the frontmatter and Overview section, and list this application's
-  files (the entry `.md`, the `Attachments/` PDF and `cv/tailored/<suffix>.tex`). Stop
+  files (the entry `.md`, the attached PDF and `cv/tailored/<suffix>.tex`). Stop
   and wait. If I give feedback, apply it and show the result again.
 - That's the end of the workflow. I commit and push myself: never stage, commit or push.

@@ -10,7 +10,7 @@ Give it a job link and it will:
 2. Copy your master CV, tailor it to the role and compile it. It reorders and rewords
    bullets, pulls alternatives from your bullet bank and regroups skills, all while
    keeping the CV to **exactly one page**.
-3. Stop for your approval, then save the PDF to `Attachments/`.
+3. Stop for your approval, then save the PDF to `Job Applications/Attachments/`.
 4. Create an Obsidian note for the application with status, source, salary, the full
    job description and a link to the exact CV you sent, then stop for approval again.
 
@@ -24,7 +24,11 @@ you instead of guessing.
 - A LaTeX distribution with `pdflatex` on your PATH:
   [MiKTeX](https://miktex.org) (Windows), [MacTeX](https://tug.org/mactex/) (macOS) or
   TeX Live (Linux)
-- [Obsidian](https://obsidian.md) (optional, but it's what makes the notes useful)
+- [Obsidian](https://obsidian.md) with the
+  [Job Application Tracker](https://github.com/cruisencode) community plugin (optional,
+  but it gives you Kanban, Table and Sankey views of your applications). The notes use
+  the plugin's own format and default folders, statuses and sources, so it works with
+  no configuration.
 
 ## Getting started
 
@@ -79,13 +83,14 @@ cv/master.tex                     your base CV (never edited by /apply)
 cv/bullet-bank.md                 true alternative bullets, skills and confirmed facts
 cv/tailored/<Company>.tex         one tailored CV per application
 cv/build/                         LaTeX output (gitignored)
-Attachments/<Prefix>_<Company>.pdf  the exact PDF you sent
-<Company> - <Role>.md             one Obsidian note per application
+Job Applications/<Company> - <Role>.md            one note per application
+Job Applications/Attachments/<Prefix>_<Company>.pdf  the exact PDF you sent
+Job Applications/Interviews/                      interview prep notes
 ```
 
-Because each note has structured frontmatter (`status`, `dateApplied`, `source`,
-`statusHistory`...), you can build tables and charts of your applications with
-Obsidian Bases or the Dataview plugin.
+The notes are in the Job Application Tracker plugin's format, plus one extra field,
+`CV used`, which links each application to the exact PDF you sent. If you change the
+plugin's statuses, sources or folders, tell Claude so it updates `CLAUDE.md` to match.
 
 ## Tips
 

@@ -72,9 +72,16 @@ isn't.
   On MiKTeX, if it fails over a missing package, run
   `initexmf --set-config-value=[MPM]AutoInstall=1` so packages install on demand, and
   retry.
-- Ask whether they use Obsidian. If yes, tell them to open this folder as a vault
-  (Obsidian > Open folder as vault). If no, that's fine: the application notes are plain
-  Markdown files that work anywhere.
+- Ask whether they use Obsidian. If no, that's fine: the application notes are plain
+  Markdown files that work anywhere. If yes, walk them through it one step at a time:
+  1. Open this folder as a vault (Obsidian > Open folder as vault).
+  2. Settings > Community plugins > Turn on community plugins.
+  3. Browse, search "Job Application Tracker" (by cruisencode), Install, then Enable.
+  4. Open it from the ribbon icon or the command palette to see the Kanban, Table and
+     Sankey views. They'll fill up as they apply.
+  Tell them to leave its settings at the defaults: this workspace is built around
+  them. If they later change statuses, sources or folders in the plugin, they should tell
+  Claude so it can update `CLAUDE.md` to match.
 
 ## 2. About you
 
